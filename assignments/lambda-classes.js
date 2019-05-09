@@ -14,8 +14,8 @@ class Person {
   }
 }
 
-const michaelhartPerson = new Person({name: 'Michael Hart', age: 43, location: 'MD'});
-michaelhartPerson.speak();
+const michaelHartPerson = new Person({name: 'Michael Hart', age: 43, location: 'MD'});
+michaelHartPerson.speak();
 
 class Instructor extends Person {
   constructor({name, age, location, specialty, favLanguage, catchPhrase}) {
@@ -34,9 +34,9 @@ class Instructor extends Person {
   }
 }
 
-const danlevy = new Instructor({name: 'Dan Levy', age: 'unknown', location: 'Lambda', specialty: 'CS', favLanguage: 'Javascript', catchPhrase: "You'll get there"});
-danlevy.speak();
-danlevy.demo('Closures');
+const danLevy = new Instructor({name: 'Dan Levy', age: 'unknown', location: 'Lambda', specialty: 'CS', favLanguage: 'Javascript', catchPhrase: "You'll get there"});
+danLevy.speak();
+danLevy.demo('Closures');
 
 class Student extends Person {
   constructor({name, age, location, previousBackground, className, favSubjects}) {
@@ -60,17 +60,38 @@ class Student extends Person {
   }
 }
 
-const michaelhartStudent = new Student({
+const michaelHartStudent = new Student({
   name: 'Michael Hart',
   age: 43,
   location: 'MD',
   previousBackground: 'Caretaking',
-  className: 'WEB20',
+  className: 'Web20',
   favSubjects: ['Python', 'Javascript', 'Lunch']
 });
 
-michaelhartStudent.speak();
-michaelhartStudent.listsSubjects();
-michaelhartStudent.PRAssignment('Python');
-michaelhartStudent.sprintChallenge('Javascript');
-danlevy.grade(michaelhartStudent, 'Prototypes');
+michaelHartStudent.speak();
+michaelHartStudent.listsSubjects();
+michaelHartStudent.PRAssignment('Python');
+michaelHartStudent.sprintChallenge('Javascript');
+danLevy.grade(michaelHartStudent, 'Prototypes');
+
+class ProjectManager extends Instructor {
+  constructor({name, age, location, specialty, favLanguage, catchPhrase, gradClassName, favInstructor}) {
+    super({name, age, location, specialty, favLanguage, catchPhrase});
+    this.gradClassName = gradClassName;
+    this.favInstructor = favInstructor;
+  }
+
+  standup(channel) {
+    console.log(`${this.name} announces to ${channel}, @channel standup time!​​​​​`);
+  }
+
+  debugsCode(student, subject) {
+    console.log(`${this.name} debugs ${student.name}'s code on ${subject}`);
+  }  
+}
+
+const ryanFreemanPM = new ProjectManager({name: 'Ryan Freeman', age: 'unknown', location: 'Salt Lake City', specialty: 'Full Stack Web Dev', favLanguage: 'Javascript', catchPhrase: "Don't worry if...", gradClassName: 'Web17', favInstructor: danLevy});
+
+ryanFreemanPM.standup('#web20_ryan');
+ryanFreemanPM.debugsCode(michaelHartStudent, 'Javascript');
