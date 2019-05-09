@@ -32,7 +32,7 @@ class Instructor extends Person {
     let points = (Math.floor(Math.random() * 41)) - 20; // Random points from -20 to +20
     student.grade += points;
     student.grade = Math.min(student.grade, 100); // If over 100, set to 100
-    student.grade = Math.max(student.grade, 0); // If below zero, set to 0
+    student.grade = Math.max(student.grade, 1); // If below zero, set to 1
     console.log(`${this.name} gives ${student.name} ${points} points`);
   }
 }
