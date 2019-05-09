@@ -32,6 +32,14 @@ class Instructor extends Person {
   grade(student, subject) {
     console.log(`${student.name} receives a perfect score on ${subject}`);
   }
+
+  assignsPoints(student) {
+    let points = (Math.floor(Math.random() * 40)) - 20; // Random points from -20 to +20
+    student.grade += points;
+    student.grade = Math.min(student.grade, 100); // If over 100, set to 100
+    student.grade = Math.max(student.grade, 0); // If below zero, set to 0
+    console.log(`${this.name} gives ${student.name} ${points} points`);
+  }
 }
 
 const danLevy = new Instructor({name: 'Dan Levy', age: 'unknown', location: 'Lambda', specialty: 'CS', favLanguage: 'Javascript', catchPhrase: "You'll get there"});
@@ -39,11 +47,12 @@ danLevy.speak();
 danLevy.demo('Closures');
 
 class Student extends Person {
-  constructor({name, age, location, previousBackground, className, favSubjects}) {
+  constructor({name, age, location, previousBackground, className, favSubjects, grade}) {
     super({name, age, location});
     this.previousBackground = previousBackground;
     this.className = className;
     this.favSubjects = favSubjects;
+    this.grade = grade;
   }
 
   listsSubjects() {
@@ -58,6 +67,10 @@ class Student extends Person {
   sprintChallenge(subject) {
     console.log(`${this.name} has begun sprint challenge on ${subject}`);
   }
+
+  checkGrade() {
+    console.log(`${this.name}'s grade is ${this.grade}`);
+  }
 }
 
 const michaelHartStudent = new Student({
@@ -66,7 +79,8 @@ const michaelHartStudent = new Student({
   location: 'MD',
   previousBackground: 'Caretaking',
   className: 'Web20',
-  favSubjects: ['Python', 'Javascript', 'Lunch']
+  favSubjects: ['Python', 'Javascript', 'Lunch'],
+  grade: 90
 });
 
 michaelHartStudent.speak();
@@ -94,4 +108,15 @@ class ProjectManager extends Instructor {
 const ryanFreemanPM = new ProjectManager({name: 'Ryan Freeman', age: 'unknown', location: 'Salt Lake City', specialty: 'Full Stack Web Dev', favLanguage: 'Javascript', catchPhrase: "Don't worry if...", gradClassName: 'Web17', favInstructor: danLevy});
 
 ryanFreemanPM.standup('#web20_ryan');
+ryanFreemanPM.debugsCode(michaelHartStudent, 'HTML');
+ryanFreemanPM.assignsPoints(michaelHartStudent);
+michaelHartStudent.checkGrade();
+ryanFreemanPM.debugsCode(michaelHartStudent, 'CSS');
+ryanFreemanPM.assignsPoints(michaelHartStudent);
+michaelHartStudent.checkGrade();
 ryanFreemanPM.debugsCode(michaelHartStudent, 'Javascript');
+ryanFreemanPM.assignsPoints(michaelHartStudent);
+michaelHartStudent.checkGrade();
+ryanFreemanPM.debugsCode(michaelHartStudent, 'React');
+ryanFreemanPM.assignsPoints(michaelHartStudent);
+michaelHartStudent.checkGrade();
