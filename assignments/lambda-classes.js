@@ -73,9 +73,14 @@ class Student extends Person {
   }
 
   graduate() {
+    this.checkGrade();
     if (this.grade > 70) {
       console.log(`Congratulations, ${this.name} is ready to graduate! Where's that sweet Lambda t-shirt?`);
-    } else console.log(`${this.name} needs to spend a little more time mastering the material`);
+      return true;
+    } else {
+      console.log(`${this.name} needs to spend a little more time mastering the material`);
+      return false;
+    }
   }
 }
 
@@ -126,4 +131,6 @@ michaelHartStudent.checkGrade();
 ryanFreemanPM.debugsCode(michaelHartStudent, 'React');
 ryanFreemanPM.assignsPoints(michaelHartStudent);
 michaelHartStudent.checkGrade();
-michaelHartStudent.graduate();
+while(!michaelHartStudent.graduate()) {
+  ryanFreemanPM.assignsPoints(michaelHartStudent);
+}
