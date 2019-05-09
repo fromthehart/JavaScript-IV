@@ -1,7 +1,5 @@
 // CODE here for your Lambda Classes
 
-
-
 class Person {
   constructor({name, age, location}) {
     this.name = name;
@@ -13,9 +11,6 @@ class Person {
     console.log(`Hello my name is ${this.name}, I am from ${this.location}`);
   }
 }
-
-const michaelHartPerson = new Person({name: 'Michael Hart', age: 43, location: 'MD'});
-michaelHartPerson.speak();
 
 class Instructor extends Person {
   constructor({name, age, location, specialty, favLanguage, catchPhrase}) {
@@ -42,17 +37,30 @@ class Instructor extends Person {
   }
 }
 
-const danLevy = new Instructor({name: 'Dan Levy', age: 'unknown', location: 'Lambda', specialty: 'CS', favLanguage: 'Javascript', catchPhrase: "You'll get there"});
-danLevy.speak();
-danLevy.demo('Closures');
+class ProjectManager extends Instructor {
+  constructor({name, age, location, specialty, favLanguage, catchPhrase, gradClassName, favInstructor}) {
+    super({name, age, location, specialty, favLanguage, catchPhrase});
+    this.gradClassName = gradClassName;
+    this.favInstructor = favInstructor;
+  }
+
+  standup(channel) {
+    console.log(`${this.name} announces to ${channel}, @channel standup time!​​​​​`);
+  }
+
+  debugsCode(student, subject) {
+    console.log(`${this.name} debugs ${student.name}'s code on ${subject}`);
+  }  
+}
 
 class Student extends Person {
-  constructor({name, age, location, previousBackground, className, favSubjects, grade}) {
+  constructor({name, age, location, previousBackground, className, favSubjects, grade, PM}) {
     super({name, age, location});
     this.previousBackground = previousBackground;
     this.className = className;
     this.favSubjects = favSubjects;
     this.grade = grade;
+    this.PM = PM;
   }
 
   listsSubjects() {
@@ -70,11 +78,11 @@ class Student extends Person {
 
   checkGrade() {
     console.log(`${this.name}'s grade is ${this.grade}`);
+    return this.grade;
   }
 
   graduate() {
-    this.checkGrade();
-    if (this.grade > 70) {
+    if (this.checkGrade() > 70) {
       console.log(`Congratulations, ${this.name} is ready to graduate! Where's that sweet Lambda t-shirt?`);
       return true;
     } else {
@@ -84,6 +92,32 @@ class Student extends Person {
   }
 }
 
+const danLevy = new Instructor({
+  name: 'Dan Levy',
+  age: 'unknown',
+  location: 'Lambda',
+  specialty: 'CS',
+  favLanguage: 'Javascript',
+  catchPhrase: "You'll get there"
+});
+
+const ryanFreemanPM = new ProjectManager({
+  name: 'Ryan Freeman',
+  age: 'unknown',
+  location: 'Salt Lake City',
+  specialty: 'Full Stack Web Dev',
+  favLanguage: 'Javascript',
+  catchPhrase: "Don't worry if...",
+  gradClassName: 'Web17',
+  favInstructor: danLevy
+});
+
+const michaelHartPerson = new Person({
+  name: 'Michael Hart',
+  age: 43,
+  location: 'MD'
+});
+
 const michaelHartStudent = new Student({
   name: 'Michael Hart',
   age: 43,
@@ -91,32 +125,20 @@ const michaelHartStudent = new Student({
   previousBackground: 'Caretaking',
   className: 'Web20',
   favSubjects: ['Python', 'Javascript', 'Lunch'],
-  grade: 90
+  grade: 90,
+  PM: ryanFreemanPM
 });
+
+michaelHartPerson.speak();
+
+danLevy.speak();
+danLevy.demo('Closures');
 
 michaelHartStudent.speak();
 michaelHartStudent.listsSubjects();
 michaelHartStudent.PRAssignment('Python');
 michaelHartStudent.sprintChallenge('Javascript');
 danLevy.grade(michaelHartStudent, 'Prototypes');
-
-class ProjectManager extends Instructor {
-  constructor({name, age, location, specialty, favLanguage, catchPhrase, gradClassName, favInstructor}) {
-    super({name, age, location, specialty, favLanguage, catchPhrase});
-    this.gradClassName = gradClassName;
-    this.favInstructor = favInstructor;
-  }
-
-  standup(channel) {
-    console.log(`${this.name} announces to ${channel}, @channel standup time!​​​​​`);
-  }
-
-  debugsCode(student, subject) {
-    console.log(`${this.name} debugs ${student.name}'s code on ${subject}`);
-  }  
-}
-
-const ryanFreemanPM = new ProjectManager({name: 'Ryan Freeman', age: 'unknown', location: 'Salt Lake City', specialty: 'Full Stack Web Dev', favLanguage: 'Javascript', catchPhrase: "Don't worry if...", gradClassName: 'Web17', favInstructor: danLevy});
 
 ryanFreemanPM.standup('#web20_ryan');
 ryanFreemanPM.debugsCode(michaelHartStudent, 'HTML');
@@ -130,7 +152,7 @@ ryanFreemanPM.assignsPoints(michaelHartStudent);
 michaelHartStudent.checkGrade();
 ryanFreemanPM.debugsCode(michaelHartStudent, 'React');
 ryanFreemanPM.assignsPoints(michaelHartStudent);
-michaelHartStudent.checkGrade();
+
 while(!michaelHartStudent.graduate()) {
-  ryanFreemanPM.assignsPoints(michaelHartStudent);
+  michaelHartStudent.PM.assignsPoints(michaelHartStudent);
 }
