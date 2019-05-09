@@ -14,7 +14,7 @@ class Person {
 
 class Instructor extends Person {
   constructor({name, age, location, specialty, favLanguage, catchPhrase}) {
-    super({name, age, location});
+    super(...arguments);
     this.specialty = specialty;
     this.favLanguage = favLanguage;
     this.catchPhrase = catchPhrase;
@@ -29,7 +29,7 @@ class Instructor extends Person {
   }
 
   assignsPoints(student) {
-    let points = (Math.floor(Math.random() * 41)) - 20; // Random points from -20 to +20
+    let points = (Math.floor(Math.random() * 41)) - 25; // Random points from -25 to +15
     student.grade += points;
     student.grade = Math.min(student.grade, 100); // If over 100, set to 100
     student.grade = Math.max(student.grade, 1); // If below zero, set to 1
@@ -39,7 +39,7 @@ class Instructor extends Person {
 
 class ProjectManager extends Instructor {
   constructor({name, age, location, specialty, favLanguage, catchPhrase, gradClassName, favInstructor}) {
-    super({name, age, location, specialty, favLanguage, catchPhrase});
+    super(...arguments);
     this.gradClassName = gradClassName;
     this.favInstructor = favInstructor;
   }
@@ -55,7 +55,7 @@ class ProjectManager extends Instructor {
 
 class Student extends Person {
   constructor({name, age, location, previousBackground, className, favSubjects, grade, PM}) {
-    super({name, age, location});
+    super(...arguments);
     this.previousBackground = previousBackground;
     this.className = className;
     this.favSubjects = favSubjects;
