@@ -34,7 +34,7 @@ class Instructor extends Person {
   }
 
   assignsPoints(student) {
-    let points = (Math.floor(Math.random() * 40)) - 20; // Random points from -20 to +20
+    let points = (Math.floor(Math.random() * 41)) - 20; // Random points from -20 to +20
     student.grade += points;
     student.grade = Math.min(student.grade, 100); // If over 100, set to 100
     student.grade = Math.max(student.grade, 0); // If below zero, set to 0
@@ -70,6 +70,12 @@ class Student extends Person {
 
   checkGrade() {
     console.log(`${this.name}'s grade is ${this.grade}`);
+  }
+
+  graduate() {
+    if (this.grade > 70) {
+      console.log(`Congratulations, ${this.name} is ready to graduate! Where's that sweet Lambda t-shirt?`);
+    } else console.log(`${this.name} needs to spend a little more time mastering the material`);
   }
 }
 
@@ -120,3 +126,4 @@ michaelHartStudent.checkGrade();
 ryanFreemanPM.debugsCode(michaelHartStudent, 'React');
 ryanFreemanPM.assignsPoints(michaelHartStudent);
 michaelHartStudent.checkGrade();
+michaelHartStudent.graduate();
